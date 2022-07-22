@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  academy-api: 
+    image: academy-back:latest
+    networks:
+      - traefik-public
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.academy-back.entrypoints=http"
+        - "traefik.http.routers.academy-back.rule=Host(`academy-back.sistemaagil.net`)"
+        - "traefik.http.middlewares.academy-back-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.academy-back.middlewares=academy-back-https-redirect"
+        - "traefik.http.routers.academy-back-secure.entrypoints=https"
+        - "traefik.http.routers.academy-back-secure.rule=Host(`academy-back.sistemaagil.net`)"
+        - "traefik.http.routers.academy-back-secure.tls=true"
+        - "traefik.http.routers.academy-back-secure.tls.certresolver=http"
+        - "traefik.http.routers.academy-back-secure.service=academy-back"
+        - "traefik.http.services.academy-back.loadbalancer.server.port=3000"
+        - "traefik.docker.network=traefik-public"
+
+  db:
+    image: mysql
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+networks:
+  traefik-public:
+    external: true
