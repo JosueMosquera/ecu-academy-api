@@ -1,5 +1,5 @@
 build-dev:
-	@ docker build -f devops/Dockerfile -t back-academy:latest .
+	@ docker build -f devops/Dockerfile -t academy-back:latest .
 
 deploy:
 	@ docker stack deploy -c devops/stack.yml academy-api
