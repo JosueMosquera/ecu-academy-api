@@ -28,7 +28,8 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
-
+    volumes:
+      - academy_data:/var/lib/mysql
   adminer:
     image: adminer
     restart: always
@@ -36,4 +37,7 @@ services:
       - 8080:8080
 networks:
   traefik-public:
+    external: true
+volumes:
+  academy_data:
     external: true
