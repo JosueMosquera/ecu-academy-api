@@ -32,7 +32,10 @@ export class UsersService {
     });
     return user
   }
-
+  async findOneByUserEmail(email: string) {
+    const user = await this.userRepo.findOne({ where: { email } })
+    return user
+  }
   async update(id: number, updateUserDto: UpdateUserDto) {
     const userToUpdate = await this.userRepo.findOne({
       where: {

@@ -5,18 +5,21 @@ export class User {
     id: number
     @Column({
         type: 'varchar',
+        nullable: false,
         name: 'email',
         unique: true,
     })
     email: string
     @Column({
         type: 'varchar',
-        name: 'name',
+        name: 'username',
+        nullable: false,
         unique: true
     })
     username: string
     @Column({
         type: 'varchar',
+        nullable: false,
         name: 'password',
     })
     password: string
