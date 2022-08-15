@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { CoursesModule } from './modules/courses/courses.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -15,7 +16,8 @@ import { AuthModule } from './modules/auth/auth.module';
   }),
     DatabaseModule,
     UsersModule,
-    AuthModule
+    AuthModule,
+    CoursesModule
   ],
   controllers: [AppController],
   providers: [AppService],
